@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class ShipBehavior : MonoBehaviour {
 
+    public bool isButtonEnabled = false;
     public float speed = 5.0f;
     public float rotateSpeed = 0.5f;
 
+    Button button;
     Rigidbody rigidbody = new Rigidbody();
     Vector3 vector3 = new Vector3();
-
-    public Button button;
 
     // Use this for initialization
     void Start()
@@ -34,6 +34,14 @@ public class ShipBehavior : MonoBehaviour {
 
     public void rotateLeft()
     {
-        transform.Rotate(0, -rotateSpeed, 0); // changes the rotation of the player
+        if (Input.GetMouseButtonDown(0))
+        {
+            transform.Rotate(0, -rotateSpeed, 0); // changes the rotation of the player
+        }
+    }
+
+    public void rotateRight()
+    {
+        transform.Rotate(0, rotateSpeed, 0); // changes the rotation of the player
     }
 }

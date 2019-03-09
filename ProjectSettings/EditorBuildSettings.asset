@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Alexis/Scenes/Player Controller.unity
-    guid: ea9ab1c1043e4e842ad66a7a3dbacbc6
+    path: Assets/Alexis/Scenes/Map.unity
+    guid: b26b89bf29251bf4c9db8879fc30d73b
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05

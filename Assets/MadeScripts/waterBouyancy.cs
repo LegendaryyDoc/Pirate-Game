@@ -37,11 +37,11 @@ public class waterBouyancy : MonoBehaviour {
 
         if (rotationPos == true)
         {
-            transform.Rotate(new Vector3(0f, 0f, Mathf.Lerp(frequencyMin, frequencyMax, t)));
+            transform.Rotate(new Vector3(Mathf.Lerp(frequencyMin, frequencyMax, t),0f, 0f ));
         }
         else
         {
-            transform.Rotate(new Vector3 (0f, 0f, Mathf.Lerp(frequencyMax, frequencyMin, t)));
+            transform.Rotate(new Vector3 ( Mathf.Lerp(frequencyMax, frequencyMin, t), 0f, 0f));
         }
 
         if (transform.eulerAngles.z > 3f || transform.eulerAngles.z < -3f)
