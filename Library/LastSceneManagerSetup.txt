@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Alexis/Scenes/Player Controller.unity
-  isLoaded: 1
-  isActive: 1
