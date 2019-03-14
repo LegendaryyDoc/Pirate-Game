@@ -37,6 +37,10 @@ public class waterBouyancy : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        /*-------------------------------------------------------------*/
+        /*-------------------------------------------------------------*/
+
         timer += Time.deltaTime;
 
         float t = (Time.time - startTime) / duration;
@@ -55,6 +59,15 @@ public class waterBouyancy : MonoBehaviour
             rotationPos = !rotationPos;
             timer = 0;
         }
+
+        /*-------------------------------------------------------------*/
+        /*-------------------------------------------------------------*/
+
+
+
+        /*-------------------------------------------------------------*/
+        /*-------------------------------------------------------------*/
+
 
         /*---------------------------------------------------------------------------------------------------------------------*/
         /*---------------------------------------------------------------------------------------------------------------------*/
@@ -76,7 +89,7 @@ public class waterBouyancy : MonoBehaviour
             /* currently rotates it in the wrong direction because it is off center of the ship giving it insane torque need to get origin point in the middle of the ship at least on the z */
 
             //rig.AddForceAtPosition(appliedFloatingForce, transform.parent.position);
-            //rig.AddForceAtPosition(appliedFloatingForce, new Vector3(transform.parent.position.x - 5, transform.parent.position.y - .05f, transform.parent.position.z)); 
+            //rig.AddForceAtPosition(appliedFloatingForce, new Vector3(transform.parent.position.x, transform.parent.position.y, transform.parent.position.z - 4.175f)); 
 
             /*--------------------------------------------------------------------------------------------*/
             /*--------------------------------------------------------------------------------------------*/
