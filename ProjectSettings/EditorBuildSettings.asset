@@ -7,11 +7,5 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Alexis/Scenes/Map.unity
-    guid: b26b89bf29251bf4c9db8879fc30d73b
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: 0381816e72b61ae4d8da1b1af7c951f1
   m_configObjects: {}
