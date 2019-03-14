@@ -429,10 +429,11 @@ GameObject:
   - component: {fileID: 4074190889567748}
   - component: {fileID: 65603413508984824}
   - component: {fileID: 54893665024362978}
-  - component: {fileID: 114925310173433506}
+  - component: {fileID: 114247540207379334}
+  - component: {fileID: 114110665983095090}
   - component: {fileID: 114484141450957970}
   m_Layer: 0
-  m_Name: Pirate Ship
+  m_Name: Pirate Ship Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1929,7 +1930,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1864724950566970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.0888745, y: 0, z: 4.3935957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4591691764541402}
@@ -2541,8 +2542,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24575298, y: 0.23135099, z: 0.14938799}
-  m_Center: {x: -0.083500855, y: 0, z: -7.1722737e-16}
+  m_Size: {x: 0.24575299, y: 0.23135099, z: 0.15973659}
+  m_Center: {x: -0.08350085, y: 0, z: 0.031115167}
 --- !u!81 &81907189578890650
 AudioListener:
   m_ObjectHideFlags: 1
@@ -2550,6 +2551,19 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1261066646959540}
   m_Enabled: 1
+--- !u!114 &114110665983095090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298582076961198}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fa34fb2ac6e4a48b34df39f373333f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotateSpeed: 0.5
 --- !u!114 &114203903526193872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2562,6 +2576,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1298582076961198}
+--- !u!114 &114247540207379334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298582076961198}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbae1bf1f0ca7e478b4dedbdfcf0f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increaseSail: {fileID: 0}
+  decreaseSail: {fileID: 0}
+  rotateLeft: {fileID: 0}
+  rotateRight: {fileID: 0}
+  rotateSpeed: 0.5
 --- !u!114 &114484141450957970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2576,18 +2606,5 @@ MonoBehaviour:
   frequencyMin: -0.05
   frequencyMax: 0.05
   duration: 3
-  floatForce: 500
-  floatheight: 5.5
---- !u!114 &114925310173433506
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1298582076961198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdbae1bf1f0ca7e478b4dedbdfcf0f0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  rotateSpeed: 1
+  floatForce: 400
+  floatheight: 5.3

@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class shopBehavior : MonoBehaviour {
+    private ShipBehaviorAndroidControls shipBehaviorAndroidControls;
+    private ShipBehaviorPCControls shipBehaviorPCControls;
     public Canvas canvas;
     public GameObject gameObject;
-    private ShipBehavior shipBehavior;
 
     private void Start()
     {
         canvas.enabled = false;
-        shipBehavior = gameObject.GetComponent<ShipBehavior>();
+        shipBehaviorAndroidControls = gameObject.GetComponent<ShipBehaviorAndroidControls>();
+        shipBehaviorPCControls = gameObject.GetComponent<ShipBehaviorPCControls>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +21,10 @@ public class shopBehavior : MonoBehaviour {
         if(other.name == gameObject.name)
         {
             canvas.enabled = true;
-            shipBehavior.noSail();
+            shipBehaviorAndroidControls.noSail();
+            shipBehaviorAndroidControls.rotateSpeed = 0.0f;
+            shipBehaviorPCControls.speed = 0.0f;
+            shipBehaviorPCControls.rotateSpeed = 0.0f;
         }
     }
 }

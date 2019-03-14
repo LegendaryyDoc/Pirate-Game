@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShipBehavior : MonoBehaviour {
+public class ShipBehaviorAndroidControls : MonoBehaviour {
 
     private bool isLeftRotationButtonPressed = false;
     private bool isRightRotationButtonPressed = false;
@@ -46,10 +46,6 @@ public class ShipBehavior : MonoBehaviour {
         increaseSail.onClick.AddListener(stop);
         rotateLeft.onClick.AddListener(rotLeft);
         rotateRight.onClick.AddListener(rotRight);
-
-        //transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0); // changes the rotation of the player
-
-        //vector3 = new Vector3(Input.GetAxis("Vertical"), 0.0f, 0.0f);
 
         transform.Translate(vector3 * Time.deltaTime);
     }
