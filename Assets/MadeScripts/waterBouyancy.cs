@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class waterBouyancy : MonoBehaviour {
+public class waterBouyancy : MonoBehaviour
+{
+    private float timer = 0;
+    private float startTime;
+    
     public float frequencyMin = -.1f;
     public float frequencyMax = .1f;
     public float duration = 3;
-    float startTime;
     private bool rotationPos = false;
 
     public float floatForce = 50f;
     public float floatheight = 3.2f;
 
     private float powerInput;
+
 
     Rigidbody rig;
 
@@ -33,20 +37,23 @@ public class waterBouyancy : MonoBehaviour {
 
     void FixedUpdate()
     {
+        timer += Time.deltaTime;
+
         float t = (Time.time - startTime) / duration;
 
         if (rotationPos == true)
         {
-            transform.Rotate(new Vector3(Mathf.Lerp(frequencyMin, frequencyMax, t),0f, 0f ));
+            transform.Rotate(new Vector3(Mathf.LerpAngle(transform.rotation.x, frequencyMax, t), 0f, 0f));
         }
         else
         {
-            transform.Rotate(new Vector3 ( Mathf.Lerp(frequencyMax, frequencyMin, t), 0f, 0f));
+            transform.Rotate(new Vector3(Mathf.LerpAngle(transform.rotation.x, frequencyMin, t), 0f, 0f));
         }
 
-        if (transform.eulerAngles.z > 3f || transform.eulerAngles.z < -3f)
+        if (timer >= duration)
         {
             rotationPos = !rotationPos;
+            timer = 0;
         }
 
         /*---------------------------------------------------------------------------------------------------------------------*/
@@ -60,6 +67,19 @@ public class waterBouyancy : MonoBehaviour {
             float proportionalHeight = (floatheight - hit.distance) / floatheight; // changes the height from the ground
             Vector3 appliedFloatingForce = Vector3.up * proportionalHeight * floatForce; // applies a force upward based on how close to the ground
             rig.AddForce(appliedFloatingForce, ForceMode.Acceleration); // applies the force as an acceleration
+
+
+            /*--------------------------------------------------------------------------------------------*/
+            /*--------------------------------------------------------------------------------------------*/
+
+            /* trying to get the bobbing to be less stiff by using point force to allow more torque when it is going up and down */
+            /* currently rotates it in the wrong direction because it is off center of the ship giving it insane torque need to get origin point in the middle of the ship at least on the z */
+
+            //rig.AddForceAtPosition(appliedFloatingForce, transform.parent.position);
+            //rig.AddForceAtPosition(appliedFloatingForce, new Vector3(transform.parent.position.x - 5, transform.parent.position.y - .05f, transform.parent.position.z)); 
+
+            /*--------------------------------------------------------------------------------------------*/
+            /*--------------------------------------------------------------------------------------------*/
         }
     }
 }
