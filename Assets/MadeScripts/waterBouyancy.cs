@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class waterBouyancy : MonoBehaviour
 {
-    private float timer = 0;
-    private float startTime;
+    private float timer = 0; // timer for side movement of the ship
+    private float startTime; // gets the time at the start
+
+    private float fbSwayTimer = 0; // time for forward and back movement
+    public float fbMin = -.1f; // rotation min
+    public float fbMax = .1f; // rotation max 
+    public float fbDuration = 3; // how long rotations will last
+    private bool fbRotationPos = false; // used for switching between the rotations
     
-    public float frequencyMin = -.1f;
-    public float frequencyMax = .1f;
-    public float duration = 3;
-    private bool rotationPos = false;
+    public float frequencyMin = -.1f; // side to side rotation min
+    public float frequencyMax = .1f; // rotation max
+    public float duration = 3; // how long rotations will last
+    private bool rotationPos = false; // used for switching
 
-    public float floatForce = 50f;
-    public float floatheight = 3.2f;
-
-    private float powerInput;
-
+    public float floatForce = 50f; // how much force is being applied upwards on the boat to keep it floating on the water
+    public float floatheight = 3.2f; // height at which you want the boat to be floating 
 
     Rigidbody rig;
 
@@ -31,21 +34,21 @@ public class waterBouyancy : MonoBehaviour
         startTime = Time.time;
 	}
 
-    private void Update()
-    {
-    }
-
     void FixedUpdate()
     {
 
         /*-------------------------------------------------------------*/
         /*-------------------------------------------------------------*/
 
-        timer += Time.deltaTime;
+        timer += Time.deltaTime; // timer for side to side sway
+        fbSwayTimer += Time.deltaTime; // timer for forward and back sway
 
         float t = (Time.time - startTime) / duration;
 
-        if (rotationPos == true)
+        /*-------------------------------------------------------------*/
+        /*-------------------------------------------------------------*/
+
+        if (rotationPos == true) // for side to side sway
         {
             transform.Rotate(new Vector3(Mathf.LerpAngle(transform.rotation.x, frequencyMax, t), 0f, 0f));
         }
@@ -63,15 +66,23 @@ public class waterBouyancy : MonoBehaviour
         /*-------------------------------------------------------------*/
         /*-------------------------------------------------------------*/
 
+        if (rotationPos == true) // for forward to back sway
+        {
+            transform.Rotate(new Vector3(0f, 0f, Mathf.LerpAngle(transform.rotation.z, fbMax, t)));
+        }
+        else
+        {
+            transform.Rotate(new Vector3(0f, 0f, Mathf.LerpAngle(transform.rotation.z, fbMin, t)));
+        }
 
+        if (fbSwayTimer >= fbDuration)
+        {
+            fbRotationPos = !fbRotationPos;
+            fbSwayTimer = 0;
+        }
 
         /*-------------------------------------------------------------*/
         /*-------------------------------------------------------------*/
-
-
-        /*---------------------------------------------------------------------------------------------------------------------*/
-        /*---------------------------------------------------------------------------------------------------------------------*/
-        /*---------------------------------------------------------------------------------------------------------------------*/
 
         Ray ray = new Ray(transform.position, -transform.up); // sending a ray down towards the ground from objects position
         RaycastHit hit;
@@ -80,19 +91,6 @@ public class waterBouyancy : MonoBehaviour
             float proportionalHeight = (floatheight - hit.distance) / floatheight; // changes the height from the ground
             Vector3 appliedFloatingForce = Vector3.up * proportionalHeight * floatForce; // applies a force upward based on how close to the ground
             rig.AddForce(appliedFloatingForce, ForceMode.Acceleration); // applies the force as an acceleration
-
-
-            /*--------------------------------------------------------------------------------------------*/
-            /*--------------------------------------------------------------------------------------------*/
-
-            /* trying to get the bobbing to be less stiff by using point force to allow more torque when it is going up and down */
-            /* currently rotates it in the wrong direction because it is off center of the ship giving it insane torque need to get origin point in the middle of the ship at least on the z */
-
-            //rig.AddForceAtPosition(appliedFloatingForce, transform.parent.position);
-            //rig.AddForceAtPosition(appliedFloatingForce, new Vector3(transform.parent.position.x, transform.parent.position.y, transform.parent.position.z - 4.175f)); 
-
-            /*--------------------------------------------------------------------------------------------*/
-            /*--------------------------------------------------------------------------------------------*/
         }
     }
 }
