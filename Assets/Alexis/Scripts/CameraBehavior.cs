@@ -1,37 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class CameraBehavior : MonoBehaviour {
+public class CameraBehavior : MonoBehaviour
+{
+    public new GameObject gameObject;
 
-    private Vector3 offset;
-    public GameObject target;
+    // Android
+    public Button LookLeft;
+    public Button LookRight;
 
-    // Use this for initialization
-    void Start () {
-        offset = transform.position - target.transform.position;
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKey(KeyCode.Q))
-        {
-            Rotate90Left();
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            Rotate90Right();
-        }
-        transform.position = target.transform.position + offset;
-    }
-
-    void Rotate90Left()
+    private void Update()
     {
-        transform.Rotate(0.0f, 90.0f * Time.deltaTime, 0.0f);
+        if (Application.platform == (RuntimePlatform.WindowsPlayer | RuntimePlatform.WindowsEditor))
+        {
+            LookLeft.onClick.AddListener(lookLeft);
+            LookRight.onClick.AddListener(lookRight);
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                gameObject.transform.Rotate(0.0f, -90.0f, 0.0f);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                gameObject.transform.Rotate(0.0f, 90.0f, 0.0f);
+            }
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            LookLeft.onClick.AddListener(lookLeft);
+            LookRight.onClick.AddListener(lookRight);
+        }
     }
 
-    void Rotate90Right()
-    {
-        transform.Rotate(0.0f, -90.0f * Time.deltaTime, 0.0f);
+    public void lookLeft() {
+        gameObject.transform.Rotate(0.0f, -90.0f, 0.0f);
     }
+    public void lookRight() { gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); }
 }

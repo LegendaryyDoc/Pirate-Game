@@ -9,7 +9,7 @@ public class ShipBehaviorPCControls : MonoBehaviour
     public float speed = 5.0f;
     public float rotateSpeed = 0.5f;
 
-    Rigidbody rigidbody = new Rigidbody();
+    new Rigidbody rigidbody = new Rigidbody();
     Vector3 vector3 = new Vector3();
 
     void Start()

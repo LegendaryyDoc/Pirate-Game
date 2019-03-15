@@ -21,7 +21,7 @@ public class shopBehavior : MonoBehaviour {
         if(other.name == gameObject.name)
         {
             canvas.enabled = true;
-            shipBehaviorAndroidControls.noSail();
+            shipBehaviorAndroidControls.stopSail();
             shipBehaviorAndroidControls.rotateSpeed = 0.0f;
             shipBehaviorPCControls.speed = 0.0f;
             shipBehaviorPCControls.rotateSpeed = 0.0f;
