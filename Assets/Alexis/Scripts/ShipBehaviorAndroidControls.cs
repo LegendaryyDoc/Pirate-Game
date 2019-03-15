@@ -5,54 +5,40 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class ShipBehaviorAndroidControls : MonoBehaviour {
+public class ShipBehaviorAndroidControls : MonoBehaviour
+{
+    public Button IncreaseSail;
+    public Button DecreaseSail;
 
-    public Button increaseSail;
-    public Button decreaseSail;
-
-    private float speed = 0.0f;
     public float rotateSpeed = 0.5f;
+    public float speed = 5.0f;
 
-    Rigidbody rigidbody = new Rigidbody();
+    new Rigidbody rigidbody = new Rigidbody();
     static Vector3 vector3 = new Vector3();
 
-    // Use this for initialization
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        //This locks the RigidBody so that it does not move or rotate in the X axis.
-        rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+        rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-        Button increaseSailButton = increaseSail.GetComponent<Button>();
-        Button decreaseSailButton = decreaseSail.GetComponent<Button>();
+        Button increaseSailButton = IncreaseSail.GetComponent<Button>();
+        Button decreaseSailButton = DecreaseSail.GetComponent<Button>();
 
-        increaseSailButton.onClick.AddListener(go);
-        decreaseSailButton.onClick.AddListener(stop);
+        increaseSailButton.onClick.AddListener(increaseSail);
+        decreaseSailButton.onClick.AddListener(stopSail);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-        increaseSail.onClick.AddListener(go);
-        increaseSail.onClick.AddListener(stop);
-
-        transform.Rotate(0, CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed, 0);
-        transform.Translate(vector3 * Time.deltaTime);
+        transform.Rotate(0.0f, CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed, 0.0f);
+        IncreaseSail.onClick.AddListener(increaseSail);
+        DecreaseSail.onClick.AddListener(stopSail);
+        transform.Translate(vector3 * speed * Time.deltaTime);
     }
     
-    public void go()
-    {
-        vector3 = new Vector3(++speed, 0.0f, 0.0f);
-    }
+    public void increaseSail() { vector3 = new Vector3(5.0f, 0.0f, 0.0f); }
 
-    public void noSail()
-    {
-        vector3 = new Vector3(0.0f, 0.0f, 0.0f);
-    }
+    public void decreaseSail() { vector3 = new Vector3(-5.0f, 0.0f, 0.0f); }
 
-    public void stop()
-    {
-        vector3 = new Vector3(--speed, 0.0f, 0.0f);
-    }
+    public void stopSail() { vector3 = new Vector3(0.0f, 0.0f, 0.0f); }
 }
