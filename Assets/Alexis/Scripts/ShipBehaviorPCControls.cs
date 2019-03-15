@@ -14,7 +14,7 @@ public class ShipBehaviorPCControls : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+        rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void Update()
