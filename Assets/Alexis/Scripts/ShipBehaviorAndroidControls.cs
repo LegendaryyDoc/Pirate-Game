@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class ShipBehaviorAndroidControls : MonoBehaviour {
 
-    private bool isLeftRotationButtonPressed = false;
-    private bool isRightRotationButtonPressed = false;
-
     public Button increaseSail;
     public Button decreaseSail;
-    public Button rotateLeft;
-    public Button rotateRight;
 
     private float speed = 0.0f;
     public float rotateSpeed = 0.5f;
@@ -29,13 +25,9 @@ public class ShipBehaviorAndroidControls : MonoBehaviour {
 
         Button increaseSailButton = increaseSail.GetComponent<Button>();
         Button decreaseSailButton = decreaseSail.GetComponent<Button>();
-        Button rotateLeftButton = rotateLeft.GetComponent<Button>();
-        Button rotateRightButton = rotateRight.GetComponent<Button>();
 
         increaseSailButton.onClick.AddListener(go);
         decreaseSailButton.onClick.AddListener(stop);
-        rotateLeftButton.onClick.AddListener(rotLeft);
-        rotateRightButton.onClick.AddListener(rotRight);
     }
 
     // Update is called once per frame
@@ -44,9 +36,8 @@ public class ShipBehaviorAndroidControls : MonoBehaviour {
         
         increaseSail.onClick.AddListener(go);
         increaseSail.onClick.AddListener(stop);
-        rotateLeft.onClick.AddListener(rotLeft);
-        rotateRight.onClick.AddListener(rotRight);
 
+        transform.Rotate(0, CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed, 0);
         transform.Translate(vector3 * Time.deltaTime);
     }
     
@@ -63,24 +54,5 @@ public class ShipBehaviorAndroidControls : MonoBehaviour {
     public void stop()
     {
         vector3 = new Vector3(--speed, 0.0f, 0.0f);
-    }
-
-    public void rotLeft()
-    {
-        isLeftRotationButtonPressed = true;
-        if (isLeftRotationButtonPressed)
-        {
-            transform.Rotate(0, -rotateSpeed, 0);
-        }
-        isLeftRotationButtonPressed = false;
-    }
-
-    public void rotRight()
-    {
-        if (isRightRotationButtonPressed)
-        {
-            transform.Rotate(0, rotateSpeed, 0);
-        }
-        isRightRotationButtonPressed = false;
     }
 }
