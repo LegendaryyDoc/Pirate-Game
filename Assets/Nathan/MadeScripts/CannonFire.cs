@@ -13,23 +13,51 @@ using UnityEngine;
 
 public class CannonFire : MonoBehaviour
 {
+    public GameObject cannonBallPrefab;
+    public GameObject camera;
     public float ballVelocity = 5.0f;
-    private Rigidbody rig;
+    public float delayMin = 0f;
+    public float delayMax = 0f;
+
+    private float randomNumber;
+    private Vector3 direction;
+    private GameObject cannon;
+
 
 	// Use this for initialization
 	void Start ()
     {
-        rig.GetComponent<Rigidbody>();
+        randomNumberGen();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
+		if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if(tag == "RightCannon")
+            {
+                direction = transform.TransformDirection(Vector3.right);
+            }
+            else if (tag == "LeftCannon")
+            {
+                direction = transform.TransformDirection(Vector3.left);
+            }
+            else
+            {
+                return;
+            }
+
+            cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
+
+            cannon.GetComponent<Rigidbody>().AddForce(direction * ballVelocity, ForceMode.Force);
+
+            randomNumberGen();
+        }
 	}
 
-    private void FixedUpdate()
+    void randomNumberGen()
     {
-
+        randomNumber = Random.Range(delayMin, delayMax);
     }
 }
