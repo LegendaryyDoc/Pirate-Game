@@ -23,7 +23,7 @@ public class shopBehavior : MonoBehaviour {
             canvas.enabled = true;
             shipBehaviorAndroidControls.stopSail();
             shipBehaviorAndroidControls.rotateSpeed = 0.0f;
-            shipBehaviorPCControls.speed = 0.0f;
+            shipBehaviorPCControls.currentKnots = 0.0f;
             shipBehaviorPCControls.rotateSpeed = 0.0f;
         }
     }

@@ -12,13 +12,22 @@ public class CameraBehavior : MonoBehaviour
     public Button LookLeft;
     public Button LookRight;
 
+    private void Start()
+    {
+        // When building, make sure to delete this later
+        LookLeft.onClick.AddListener(lookLeft);
+        LookRight.onClick.AddListener(lookRight);
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            LookLeft.onClick.AddListener(lookLeft);
+            LookRight.onClick.AddListener(lookRight);
+        }
+    }
+
     private void Update()
     {
         if (Application.platform == (RuntimePlatform.WindowsPlayer | RuntimePlatform.WindowsEditor))
         {
-            LookLeft.onClick.AddListener(lookLeft);
-            LookRight.onClick.AddListener(lookRight);
-
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 gameObject.transform.Rotate(0.0f, -90.0f, 0.0f);
@@ -27,11 +36,6 @@ public class CameraBehavior : MonoBehaviour
             {
                 gameObject.transform.Rotate(0.0f, 90.0f, 0.0f);
             }
-        }
-        else if (Application.platform == RuntimePlatform.Android)
-        {
-            LookLeft.onClick.AddListener(lookLeft);
-            LookRight.onClick.AddListener(lookRight);
         }
     }
 
