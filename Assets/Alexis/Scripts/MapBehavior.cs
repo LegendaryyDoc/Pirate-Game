@@ -4,25 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MapBehavior : MonoBehaviour {
-    private ShipBehaviorAndroidControls androidControls;
-    private ShipBehaviorPCControls pcControls;
-    public Canvas canvas;
-    public GameObject gameObject;
+    public Canvas pcControlCanvas;
 
-	// Use this for initialization
-	void Start () {
-        androidControls = gameObject.GetComponent<ShipBehaviorAndroidControls>();
-        canvas.enabled = false;
-        pcControls = gameObject.GetComponent<ShipBehaviorPCControls>();
+    // Use this for initialization
+    void Start() {
+        pcControlCanvas.enabled = false;
+    }
 
+    void Update()
+    {
         if (Application.platform == (RuntimePlatform.WindowsPlayer | RuntimePlatform.WindowsEditor))
         {
-            pcControls.enabled = true;
+            pcControlCanvas.enabled = true;
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
-            androidControls.enabled = true;
-            canvas.enabled = true;
+            pcControlCanvas.enabled = false;
         }
-	}
+    }
 }

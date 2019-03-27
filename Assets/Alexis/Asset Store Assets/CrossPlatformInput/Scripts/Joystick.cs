@@ -25,6 +25,8 @@ namespace UnityStandardAssets.CrossPlatformInput
 		CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
 		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
+        Animator shipWheel;
+
 		void OnEnable()
 		{
 			CreateVirtualAxes();
@@ -43,9 +45,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 			if (m_UseX)
 			{
 				m_HorizontalVirtualAxis.Update(-delta.x);
-			}
+            }
 
-			if (m_UseY)
+            if (m_UseY)
 			{
 				m_VerticalVirtualAxis.Update(delta.y);
 			}

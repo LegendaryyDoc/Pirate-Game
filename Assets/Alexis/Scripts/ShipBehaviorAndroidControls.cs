@@ -7,6 +7,8 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class ShipBehaviorAndroidControls : MonoBehaviour
 {
+    public Animator animator;
+
     public Button IncreaseSail;
     public Button DecreaseSail;
 
@@ -26,10 +28,21 @@ public class ShipBehaviorAndroidControls : MonoBehaviour
 
         increaseSailButton.onClick.AddListener(increaseSail);
         decreaseSailButton.onClick.AddListener(stopSail);
+
+        animator.enabled = false;
     }
 
     void Update()
     {
+        if (CrossPlatformInputManager.GetAxis("Horizontal") != 0)
+        {
+            animator.enabled = true;
+        }
+        else
+        {
+            animator.enabled = false;
+        }
+
         transform.Rotate(0.0f, CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed, 0.0f);
         IncreaseSail.onClick.AddListener(increaseSail);
         DecreaseSail.onClick.AddListener(stopSail);
