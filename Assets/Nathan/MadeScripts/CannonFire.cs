@@ -35,15 +35,16 @@ public class CannonFire : MonoBehaviour
     {
 		if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(tag == "RightCannon" && camera.GetComponent<Camera>().transform.rotation.eulerAngles.y >= 80 && camera.GetComponent<Camera>().transform.rotation.eulerAngles.y <= 100)
+            Debug.Log("Rotation: " + camera.transform.localEulerAngles.y);
+            if(tag == "RightCannon" && camera.transform.localEulerAngles.y >= 80 && camera.transform.localEulerAngles.y <= 100)
             {
                 direction = transform.TransformDirection(Vector3.right);
             }
-            else if (tag == "LeftCannon" && camera.GetComponent<Camera>().transform.rotation.eulerAngles.y >= 260 && camera.GetComponent<Camera>().transform.rotation.eulerAngles.y <= 280)
+            else if (tag == "LeftCannon" && camera.transform.localEulerAngles.y >= 260 && camera.transform.localEulerAngles.y <= 280)
             {
                 direction = transform.TransformDirection(Vector3.left);
             }
-            else if (camera.GetComponent<Camera>().transform.rotation.eulerAngles.y >= -20 && camera.GetComponent<Camera>().transform.rotation.eulerAngles.y <= 20 || camera.GetComponent<Camera>().transform.rotation.eulerAngles.y >= 160 && camera.GetComponent<Camera>().transform.rotation.eulerAngles.y <= 200)
+            /*else if (camera.transform.rotation.eulerAngles.y >= -20 && camera.transform.rotation.eulerAngles.y <= 20 || camera.transform.rotation.eulerAngles.y >= 160 && camera.transform.rotation.eulerAngles.y <= 200)
             {
                 if (tag == "RightCannon")
                 {
@@ -57,7 +58,7 @@ public class CannonFire : MonoBehaviour
                 {
                     return;
                 }
-            }
+            }*/
             else
             {
                 return;
