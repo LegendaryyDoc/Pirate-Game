@@ -50,21 +50,22 @@ public class ShipAi : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        currentLerpTime += Time.deltaTime;
 
         if (target == null)
         {
             return;
         }
+        currentLerpTime += Time.deltaTime;
 
         // rotate to the target
-        float perc = currentLerpTime / lerpTime;
+        float perc = currentLerpTime / lerpTime; // for the lerp
 
-        var lookPos = target.position - transform.position;
+
+        var lookPos = target.position - transform.position; // gets the offset of the 2 objects
         lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos, Vector3.up);
+        var rotation = Quaternion.LookRotation(lookPos, Vector3.up); // uses the offest and makes it a angle
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, perc);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, perc); // rotates the ai
 
         distanceBetween = Vector3.Distance(transform.position, target.position); // checks to see how close or far the player is from the ai
         toClose = distanceBetween < toCloseDistance; // checks to see if to close
