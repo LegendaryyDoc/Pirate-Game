@@ -43,7 +43,7 @@ public class CannonFire : MonoBehaviour
 
 		if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Rotation: " + camera.transform.localEulerAngles.y);
+            //Debug.Log("Rotation: " + camera.transform.localEulerAngles.y);
             if(tag == "RightCannon" && camera.transform.localEulerAngles.y >= 80 && camera.transform.localEulerAngles.y <= 100)
             {
                 direction = transform.TransformDirection(Vector3.right);
