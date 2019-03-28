@@ -7,12 +7,15 @@ public class ShipAi : MonoBehaviour
     public Transform target;
     public float toCloseDistance = 10f;
     private float distanceBetween;
+    public float speed = .5f;
     
     private bool toClose;
     private Vector3 direction;
     private Quaternion targetRotation;
     private float str;
     private float strength = .5f;
+    private float lerpTime = 1f;
+    private float currentLerpTime;
 
     /*-----   Check if player is in range   -----*/
 
@@ -47,19 +50,21 @@ public class ShipAi : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        currentLerpTime += Time.deltaTime;
+
         if (target == null)
         {
             return;
         }
 
-
-        //Debug.Log(target.rotation.eulerAngles);
         // rotate to the target
-        //transform.LookAt(target); // ai looks towards the target
-        targetRotation = Quaternion.LookRotation(target.position - transform.position);
-        Debug.Log(targetRotation.eulerAngles);
-        str = Mathf.Min(strength * Time.deltaTime, 1);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+        float perc = currentLerpTime / lerpTime;
+
+        var lookPos = target.position - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos, Vector3.up);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, perc);
 
         distanceBetween = Vector3.Distance(transform.position, target.position); // checks to see how close or far the player is from the ai
         toClose = distanceBetween < toCloseDistance; // checks to see if to close
