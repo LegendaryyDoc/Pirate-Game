@@ -18,7 +18,9 @@ public class CannonFire : MonoBehaviour
     public float ballVelocity = 5.0f;
     public float delayMin = 0f;
     public float delayMax = 0f;
+    public float cannonShootDelay = 3.0f;
 
+    private float cooldownTimerForCannons = 0;
     private float randomNumber;
     private Vector3 direction;
     private GameObject cannon;
@@ -33,6 +35,12 @@ public class CannonFire : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        cooldownTimerForCannons -= Time.deltaTime;
+        if(cooldownTimerForCannons >= 0)
+        {
+            return;
+        }
+
 		if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log("Rotation: " + camera.transform.localEulerAngles.y);
@@ -44,7 +52,7 @@ public class CannonFire : MonoBehaviour
             {
                 direction = transform.TransformDirection(Vector3.left);
             }
-            /*else if (camera.transform.rotation.eulerAngles.y >= -20 && camera.transform.rotation.eulerAngles.y <= 20 || camera.transform.rotation.eulerAngles.y >= 160 && camera.transform.rotation.eulerAngles.y <= 200)
+            else if (camera.transform.localEulerAngles.y >= -20 && camera.transform.localEulerAngles.y <= 20 || camera.transform.localEulerAngles.y >= 160 && camera.transform.localEulerAngles.y <= 200)
             {
                 if (tag == "RightCannon")
                 {
@@ -58,13 +66,15 @@ public class CannonFire : MonoBehaviour
                 {
                     return;
                 }
-            }*/
+            }
             else
             {
                 return;
             }
 
             cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
+            
+            cooldownTimerForCannons = cannonShootDelay;
 
             cannon.GetComponent<Rigidbody>().AddForce(direction * ballVelocity, ForceMode.Force);
 
