@@ -8,12 +8,10 @@ public class ShipAi : MonoBehaviour
     public float toCloseDistance = 10f;
     private float distanceBetween;
     public float speed = .5f;
+    public float turnSpeed = 10f;
     
     private bool toClose;
     private Vector3 direction;
-    private Quaternion targetRotation;
-    private float str;
-    private float strength = .5f;
     private float lerpTime = 1f;
     private float currentLerpTime;
 
@@ -21,11 +19,9 @@ public class ShipAi : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Trigger");
         if (other.tag == "Player")
         {
             target = other.transform;
-            //Debug.Log(other.name);
         }
     }
 
@@ -39,18 +35,10 @@ public class ShipAi : MonoBehaviour
 
     /*-------------------------------------------*/
     /*-------------------------------------------*/
-
-
-    // Use this for initialization
-    void Start ()
-    {
-
-	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-
         if (target == null)
         {
             return;
@@ -58,7 +46,7 @@ public class ShipAi : MonoBehaviour
         currentLerpTime += Time.deltaTime;
 
         // rotate to the target
-        float perc = currentLerpTime / lerpTime; // for the lerp
+        float perc = currentLerpTime / lerpTime / turnSpeed; // for the lerp
 
 
         var lookPos = target.position - transform.position; // gets the offset of the 2 objects
@@ -72,11 +60,6 @@ public class ShipAi : MonoBehaviour
         direction = toClose ? Vector3.back : Vector3.forward; // checks if to close or not and will go in a certain direction if it is or not
 
         // move in the direction towards the player
-        transform.Translate(direction * Time.deltaTime);
-
-        // if player can be hit by cannons
-        // check what side the player is on
-        // shoot the cannons when can
-        // keep the side of the ship you are attacking with inline with the player ship
+        transform.Translate(direction * Time.deltaTime * speed);
 	}
 }
