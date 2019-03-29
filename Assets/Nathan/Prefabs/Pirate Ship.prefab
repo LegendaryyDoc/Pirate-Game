@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 114209839194740834}
   m_Layer: 0
   m_Name: Pirate Ship Object
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 4578429544901256}
   m_Layer: 0
   m_Name: Pirate Ship
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2167,7 +2167,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1610535720748274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.43, y: 5.4, z: 16.127832}
+  m_LocalPosition: {x: 44.7, y: 5.4, z: 16.127832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4806456419878958}
@@ -2292,7 +2292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275325165788224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalPosition: {x: 0, y: -0.298, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4699447901350914}
@@ -3244,8 +3244,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.25, z: 0.125}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.23, y: 0.2, z: 0.125}
+  m_Center: {x: 0, y: -0.01, z: 0}
 --- !u!81 &81576381948843224
 AudioListener:
   m_ObjectHideFlags: 1
@@ -3270,6 +3270,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114116695152350370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3287,6 +3288,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114153331773214400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3319,7 +3321,7 @@ MonoBehaviour:
   frequencyMax: 0.05
   duration: 3
   floatForce: 450
-  floatheight: 5.3
+  floatheight: 5.4
 --- !u!114 &114306226489437998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3337,6 +3339,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114366638891921780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3354,6 +3357,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114455281341937568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3371,6 +3375,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114521824220969062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3402,6 +3407,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114762804328558110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3419,6 +3425,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!114 &114973973323422768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3436,6 +3443,7 @@ MonoBehaviour:
   ballVelocity: 1500
   delayMin: 0
   delayMax: 0
+  cannonShootDelay: 3
 --- !u!135 &135096262279976530
 SphereCollider:
   m_ObjectHideFlags: 1
