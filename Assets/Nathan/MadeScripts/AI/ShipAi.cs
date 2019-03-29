@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿    
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,9 +116,7 @@ public class ShipAi : MonoBehaviour
     {
         /*float difX = (transform.position.x - target.position.x);
         float difY = (transform.position.z - target.position.z);
-
         float angle = Mathf.Atan2(difY, difX);
-
         var x = radiusNearestPoint * Mathf.Cos(angle + angleDirection);
         var y = radiusNearestPoint * Mathf.Sin(angle + angleDirection);
         return new Vector3(x, 0, y);   */
@@ -135,7 +134,7 @@ public class ShipAi : MonoBehaviour
             }
         }
 
-        if (rightSide == false)
+        if (rightSide == true)
         {
             if (closestTerm == 0)
             {
