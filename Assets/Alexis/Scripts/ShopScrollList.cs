@@ -14,16 +14,16 @@ public class Item
 
 public class ShopScrollList : MonoBehaviour
 {
-
+    public float gold = 0.0f;
     public List<Item> itemList;
-    public Transform contentPanel;
     public ShopScrollList otherShop;
-    public TextMeshProUGUI myGoldDisplay;
     public SimpleObjectPool buttonObjectPool;
+    [HideInInspector]
+    public string currentItemSelected;
+    public TextMeshProUGUI myGoldDisplay;
+    public Transform contentPanel;
+    public UserStatistics userStatistics;
 
-    public float gold = 20f;
-
-    // Use this for initialization
     void Start()
     {
         RefreshDisplay();
@@ -32,6 +32,10 @@ public class ShopScrollList : MonoBehaviour
     void RefreshDisplay()
     {
         myGoldDisplay.text = "Gold: " + gold.ToString();
+        if (otherShop.name == "Ship Inventory Content")
+        {
+            userStatistics.gold = 150.0f;
+        }
         RemoveButtons();
         AddButtons();
     }
@@ -65,13 +69,22 @@ public class ShopScrollList : MonoBehaviour
             gold += item.price;
             otherShop.gold -= item.price;
 
-            AddItem(item, otherShop);
+            if (item.itemName != "Food")
+            {
+                AddItem(item, otherShop);
+            }
             RemoveItem(item, this);
+
+            if (item.itemName == "Food")
+            {
+                userStatistics.addFood(25.0f);
+            }
 
             RefreshDisplay();
             otherShop.RefreshDisplay();
             Debug.Log("enough gold");
 
+            ItemSelected(item.itemName);        
         }
         Debug.Log("attempted");
     }
@@ -90,5 +103,11 @@ public class ShopScrollList : MonoBehaviour
                 shopList.itemList.RemoveAt(i);
             }
         }
+    }
+
+    public string ItemSelected(string itemName)
+    {
+        currentItemSelected = itemName;
+        return currentItemSelected;
     }
 }

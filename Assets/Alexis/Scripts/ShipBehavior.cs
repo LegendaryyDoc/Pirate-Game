@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class ShipBehaviorControls : MonoBehaviour
+public class ShipBehavior : MonoBehaviour
 {
     new Rigidbody rigidbody = new Rigidbody();
 
+    // private Canvas shopCanvas;
     private float rotateSpeed = 0.5f;
     private Transform tfCam;
 
     public Animator animator;
+    [HideInInspector]
+    //public Canvas playerInventoryCanvas;
+    public ShopScrollList sSL;
 
     static float currentKnots = 0.0f;
     static Vector3 vector3 = new Vector3();
@@ -24,9 +29,11 @@ public class ShipBehaviorControls : MonoBehaviour
     void Start()
     {
         animator.enabled = false;
+        //playerInventoryCanvas.enabled = false;
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         tfCam = Camera.main.transform;
+        //playerInventoryCanvas.enabled = false;
 
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -103,6 +110,20 @@ public class ShipBehaviorControls : MonoBehaviour
                 vector3 = new Vector3(currentKnots, 0.0f, 0.0f);
             }
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        sSL.otherShop = other.GetComponentInChildren<ShopScrollList>();
+        //shopCanvas = other.GetComponentInChildren<Canvas>();
+        //playerInventoryCanvas.enabled = true;
+        //shopCanvas.enabled = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        sSL.otherShop = null;
+        //playerInventoryCanvas.enabled = false;
     }
 
     // Android Functions
