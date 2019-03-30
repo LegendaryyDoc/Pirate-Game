@@ -86,7 +86,7 @@ public class waterBouyancy : MonoBehaviour
 
         Ray ray = new Ray(transform.position, -transform.up); // sending a ray down towards the ground from objects position
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, floatheight)) // sends out a ray at the distance over hover height and then detects the hit
+        if (Physics.Raycast(ray, out hit, floatheight) && hit.transform.gameObject.tag == "Floor") // sends out a ray at the distance over hover height and then detects the hit
         {
             float proportionalHeight = (floatheight - hit.distance) / floatheight; // changes the height from the ground
             Vector3 appliedFloatingForce = Vector3.up * proportionalHeight * floatForce; // applies a force upward based on how close to the ground
