@@ -88,6 +88,12 @@ public class waterBouyancy : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, floatheight) && hit.transform.gameObject.tag == "Floor") // sends out a ray at the distance over hover height and then detects the hit
         {
+            Debug.Log(Vector3.Angle(Vector3.up, hit.normal));
+            if(Vector3.Angle( Vector3.up, hit.normal) > 5)
+            {
+                return;
+            }
+
             float proportionalHeight = (floatheight - hit.distance) / floatheight; // changes the height from the ground
             Vector3 appliedFloatingForce = Vector3.up * proportionalHeight * floatForce; // applies a force upward based on how close to the ground
             rig.AddForce(appliedFloatingForce, ForceMode.Acceleration); // applies the force as an acceleration

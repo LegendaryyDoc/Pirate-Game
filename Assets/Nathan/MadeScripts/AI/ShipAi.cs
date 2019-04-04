@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ShipAi : MonoBehaviour
 {
+    public float health = 100f;
+
     public bool movement = true; // for shutting off movement section of code
     public bool gizmos = true; // for shutting off gizmos drawing
 
