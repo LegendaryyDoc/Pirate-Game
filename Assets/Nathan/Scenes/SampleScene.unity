@@ -2141,42 +2141,42 @@ Prefab:
     - target: {fileID: 114461977150559532, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114295855288326656, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114405526669617158, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114755093199438526, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114607187217470730, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114192078572896846, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114256983055601884, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 114296959285815848, guid: 52db195c1f1cdac4d894102190a0d0d6,
         type: 2}
       propertyPath: ballVelocity
-      value: 250
+      value: 1500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52db195c1f1cdac4d894102190a0d0d6, type: 2}

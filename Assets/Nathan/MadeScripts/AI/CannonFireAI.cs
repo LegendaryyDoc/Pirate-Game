@@ -54,13 +54,19 @@ public class CannonFireAI : MonoBehaviour {
             cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation); // creates a cannonball
             if (tag == "RightCannon") // checks to see what side the player is and fires the cannons accordingly
             {
-                Quaternion dir = Quaternion.AngleAxis(10, transform.TransformDirection(Vector3.right));
-                cannon.GetComponent<Rigidbody>().AddForce(dir.eulerAngles * ballVelocity, ForceMode.Force);
+                //cannon.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.right) * ballVelocity, ForceMode.Force);
+
+                Vector3 dir = transform.right;
+                dir += (.1f * transform.up);
+                cannon.GetComponent<Rigidbody>().AddForce(dir * ballVelocity, ForceMode.Force);
             }
             else if (tag == "LeftCannon")
             {
-                Quaternion dir = Quaternion.AngleAxis(10, transform.TransformDirection(Vector3.left));
-                cannon.GetComponent<Rigidbody>().AddForce(dir.eulerAngles * ballVelocity, ForceMode.Force);
+                //cannon.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.left) * ballVelocity, ForceMode.Force);
+
+                Vector3 dir = -transform.right;
+                dir += (.1f * transform.up);
+                cannon.GetComponent<Rigidbody>().AddForce(dir * ballVelocity, ForceMode.Force);
             }
             cooldownTimerForCannonballs = cannonShootDelay; // resets the cannon countdown until can fire again
         }
