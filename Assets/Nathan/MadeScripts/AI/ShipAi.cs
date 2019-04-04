@@ -14,9 +14,11 @@ public class ShipAi : MonoBehaviour
     public float toCloseDistance = 10f;
     public float speed = .5f;
     public float turnSpeed = 10f;
+    public float fireDistance = 20f;
+    public float ballVelocity = 1500f;
+    public GameObject cannonBallPrefab;
 
     private bool rightSide;
-    private float PI = 3.14159265359f;
     private float distanceBetween;
     private bool toClose; // if to close then switched the direction
     private Vector3 direction; // direction moving
@@ -24,9 +26,9 @@ public class ShipAi : MonoBehaviour
     private float currentLerpTime; // how far in the lerp currently
     private Vector3 relativePoint; // used for determining if other object is on the left or right of the ai
     private int closestTerm = -1;
+    private GameObject cannon;
 
     public int amountOfTerminals = 12;
-    private int angleDirection;
     private Vector3[] terminals;
 
 
@@ -110,17 +112,27 @@ public class ShipAi : MonoBehaviour
         {
             rightSide = false;
         }
-	}
 
-    Vector3 GetPoint()
+        /*------------------------------------------------------------------------------------------------------------*/
+        /*-------------------------------------  Fire The Cannons When In Distance  ----------------------------------*/
+        /*------------------------------------------------------------------------------------------------------------*/
+
+        if (Vector3.Distance(target.position, transform.position) <= fireDistance)
+        {
+            cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
+            if (rightSide == true)
+            {
+                cannon.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.right) * ballVelocity, ForceMode.Force);
+            }
+            else if (rightSide == false)
+            {
+                cannon.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.left) * ballVelocity, ForceMode.Force);
+            }
+        }
+    }
+
+    Vector3 GetPoint() // Gets the nearest node
     {
-        /*float difX = (transform.position.x - target.position.x);
-        float difY = (transform.position.z - target.position.z);
-        float angle = Mathf.Atan2(difY, difX);
-        var x = radiusNearestPoint * Mathf.Cos(angle + angleDirection);
-        var y = radiusNearestPoint * Mathf.Sin(angle + angleDirection);
-        return new Vector3(x, 0, y);   */
-
         closestTerm = 0;
         float closestCurrentDist = Vector3.Distance(transform.position, target.position + terminals[closestTerm]);
         for(int i = 1; i < terminals.Length; i++)
@@ -156,11 +168,10 @@ public class ShipAi : MonoBehaviour
                 closestTerm = (closestTerm + 1) % terminals.Length;
             }
         }
-
         return target.position + terminals[closestTerm];
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos() // Draws all the gizmos
     {
         if(target == null || gizmos == false)
         {
@@ -178,6 +189,7 @@ public class ShipAi : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, target.position + terminals[closestTerm]);
 
-        //Gizmos.DrawWireSphere(new Vector3(target.position.x + point.x, 3, target.position.z + point.z), 1);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, fireDistance);
     }
 }
