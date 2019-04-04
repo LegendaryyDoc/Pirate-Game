@@ -3196,11 +3196,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2441ec578555414296f66fd17fa464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: 1
+  gizmos: 1
+  radiusNearestPoint: 15
   target: {fileID: 0}
-  toCloseDistance: 5
-  lineUpShotDistance: 30
-  speed: 2
-  turnSpeed: 1500
+  toCloseDistance: 10
+  speed: 2.5
+  turnSpeed: 10
+  fireDistance: 5
+  ballVelocity: 1500
+  cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
+    type: 2}
+  amountOfTerminals: 12
 --- !u!114 &114433549642805638
 MonoBehaviour:
   m_ObjectHideFlags: 1
