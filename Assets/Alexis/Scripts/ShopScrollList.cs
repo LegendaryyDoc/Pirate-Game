@@ -9,7 +9,7 @@ public class Item
 {
     public string itemName;
     public Sprite icon;
-    public float price = 1;
+    public float price = 1.0f;
 }
 
 public class ShopScrollList : MonoBehaviour
