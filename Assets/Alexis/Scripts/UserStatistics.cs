@@ -32,7 +32,6 @@ public class UserStatistics : MonoBehaviour
 
     private void loseFoodOverTime()
     {
-        // health -= 1.0f * Time.deltaTime;
         health -= 2.0f * Time.deltaTime;
     }
 

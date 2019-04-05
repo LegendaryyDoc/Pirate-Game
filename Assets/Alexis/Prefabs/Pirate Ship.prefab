@@ -3659,7 +3659,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114246315635225008}
   m_HandleRect: {fileID: 224104969748323572}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3705,7 +3705,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114364840099072236}
   m_HandleRect: {fileID: 224438716356210266}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4159,7 +4159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bf05d5b184e16419588200760fe117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
+  gold: 50
   itemList: []
   otherShop: {fileID: 0}
   buttonObjectPool: {fileID: 0}
@@ -4661,7 +4661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000045776367, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0.00010681152, y: 0.000061035156}
   m_SizeDelta: {x: 412, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224825915175369632

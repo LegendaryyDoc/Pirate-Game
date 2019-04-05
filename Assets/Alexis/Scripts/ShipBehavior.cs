@@ -10,14 +10,15 @@ public class ShipBehavior : MonoBehaviour
 {
     new Rigidbody rigidbody = new Rigidbody();
 
-    // private Canvas shopCanvas;
+    private float health;
+    private float respawnTimer = 0.0f;
     private float rotateSpeed = 0.5f;
     private Transform tfCam;
 
     public Animator animator;
-    [HideInInspector]
-    //public Canvas playerInventoryCanvas;
+    public Animator fadeTransitions;
     public ShopScrollList sSL;
+    public UserStatistics userStatistics;
 
     static float currentKnots = 0.0f;
     static Vector3 vector3 = new Vector3();
@@ -28,29 +29,32 @@ public class ShipBehavior : MonoBehaviour
 
     void Start()
     {
+        DecreaseSail.onClick.AddListener(decreaseSail);
+        IncreaseSail.onClick.AddListener(increaseSail);
+
         animator.enabled = false;
-        //playerInventoryCanvas.enabled = false;
+        fadeTransitions.enabled = true;
+        fadeTransitions.SetBool("isObjectResetting", false);
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         tfCam = Camera.main.transform;
-        //playerInventoryCanvas.enabled = false;
-
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            DecreaseSail = GameObject.Find("Decrease Sail").GetComponent<Button>();
-            IncreaseSail = GameObject.Find("Increase Sail").GetComponent<Button>();
-
-            Button increaseSailButton = IncreaseSail;
-            Button decreaseSailButton = DecreaseSail;
-        }
     }
 
     void FixedUpdate()
     {
         Debug.Log("Current Knots: " + currentKnots);
+        health = userStatistics.health;
+
+        if (health <= 0.0f)
+        {
+            enabled = false;
+        }
 
         if (Application.platform == RuntimePlatform.Android)
         {
+            transform.Rotate(0.0f, CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed, 0.0f);
+            transform.Translate(vector3 * Time.deltaTime);
+
             if (CrossPlatformInputManager.GetAxis("Horizontal") != 0)
             {
                 animator.enabled = true;
@@ -59,11 +63,6 @@ public class ShipBehavior : MonoBehaviour
             {
                 animator.enabled = false;
             }
-
-            DecreaseSail.onClick.AddListener(decreaseSail);
-            IncreaseSail.onClick.AddListener(increaseSail);
-            transform.Rotate(0.0f, CrossPlatformInputManager.GetAxis("Horizontal") * rotateSpeed, 0.0f);
-            transform.Translate(vector3 * Time.deltaTime);
         }
 
         else if (Application.platform == (RuntimePlatform.WindowsPlayer | RuntimePlatform.WindowsEditor))
@@ -86,69 +85,83 @@ public class ShipBehavior : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
+                currentKnots += 1.5f;
+
                 if (currentKnots > 10.0f)
                 {
                     currentKnots = 10.0f;
-                }
-                else
-                {
-                    currentKnots += 1.5f;
                 }
                 vector3 = new Vector3(currentKnots, 0.0f, 0.0f);
             }
 
             else if (Input.GetKeyDown(KeyCode.S))
             {
+                currentKnots -= 1.5f;
+
                 if (currentKnots < 0.0f)
                 {
                     currentKnots = 0.0f;
                 }
-                else
-                {
-                    currentKnots -= 1.5f;
-                }
                 vector3 = new Vector3(currentKnots, 0.0f, 0.0f);
             }
         }
+        respawn(new Vector3(5.0f, 5.0f, 5.0f));
     }
 
     private void OnTriggerStay(Collider other)
     {
-        sSL.otherShop = other.GetComponentInChildren<ShopScrollList>();
-        //shopCanvas = other.GetComponentInChildren<Canvas>();
-        //playerInventoryCanvas.enabled = true;
-        //shopCanvas.enabled = true;
+        if(other.tag == "Port")
+        {
+            sSL.otherShop = other.GetComponentInChildren<ShopScrollList>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        sSL.otherShop = null;
-        //playerInventoryCanvas.enabled = false;
+        if (other.tag == "Port")
+        {
+            sSL.otherShop = null;
+        }
+    }
+
+    // Ship Functions
+    private void respawn(Vector3 respawnPosition)
+    {
+        respawnTimer += Time.deltaTime;
+        if (transform.position.y < -5.0f | transform.position.y > 8.5f)
+        {
+            fadeTransitions.SetBool("isObjectResetting", true);
+            respawnTimer = 0.0f;
+            Mathf.RoundToInt(sSL.gold /= 2.0f);
+            transform.position = respawnPosition;
+            currentKnots = 0.0f;
+            vector3 = new Vector3(currentKnots, 2.5f, 0.0f);
+        }
+        if (respawnTimer > 2.0f)
+        {
+            fadeTransitions.SetBool("isObjectResetting", false);
+        }
     }
 
     // Android Functions
     public void increaseSail()
     {
+        currentKnots += 1.5f;
+
         if (currentKnots > 10.0f)
         {
             currentKnots = 10.0f;
-        }
-        else
-        {
-            currentKnots += 1.5f;
         }
         vector3 = new Vector3(currentKnots, 0.0f, 0.0f);
     }
 
     public void decreaseSail()
     {
+        currentKnots -= 1.5f;
+
         if (currentKnots < 0.0f)
         {
             currentKnots = 0.0f;
-        }
-        else
-        {
-            currentKnots -= 1.5f;
         }
         vector3 = new Vector3(currentKnots, 0.0f, 0.0f);
     }

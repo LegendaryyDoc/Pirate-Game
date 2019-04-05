@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*  PLAN  */
 
@@ -13,6 +14,7 @@ using UnityEngine;
 
 public class CannonFire : MonoBehaviour
 {
+    public Button cannonFireButton;
     public GameObject cannonBallPrefab;
     public GameObject camera;
     public float ballVelocity = 5.0f;
@@ -29,6 +31,7 @@ public class CannonFire : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        cannonFireButton.onClick.AddListener(cannonFire);
         randomNumberGen();
 	}
 	
@@ -41,45 +44,91 @@ public class CannonFire : MonoBehaviour
             return;
         }
 
-		if(Input.GetKeyDown(KeyCode.Mouse0))
+        if (Application.platform == (RuntimePlatform.WindowsEditor | RuntimePlatform.WindowsPlayer))
         {
-            if(tag == "RightCannon" && camera.transform.localEulerAngles.y >= 80 && camera.transform.localEulerAngles.y <= 100)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                direction = transform.TransformDirection(Vector3.right);
-            }
-            else if (tag == "LeftCannon" && camera.transform.localEulerAngles.y >= 260 && camera.transform.localEulerAngles.y <= 280)
-            {
-                direction = transform.TransformDirection(Vector3.left);
-            }
-            else if (camera.transform.localEulerAngles.y >= -20 && camera.transform.localEulerAngles.y <= 20 || camera.transform.localEulerAngles.y >= 160 && camera.transform.localEulerAngles.y <= 200)
-            {
-                if (tag == "RightCannon")
+                if (tag == "RightCannon" && camera.transform.localEulerAngles.y >= 80 && camera.transform.localEulerAngles.y <= 100)
                 {
                     direction = transform.TransformDirection(Vector3.right);
                 }
-                else if (tag == "LeftCannon")
+                else if (tag == "LeftCannon" && camera.transform.localEulerAngles.y >= 260 && camera.transform.localEulerAngles.y <= 280)
                 {
                     direction = transform.TransformDirection(Vector3.left);
+                }
+                else if (camera.transform.localEulerAngles.y >= -20 && camera.transform.localEulerAngles.y <= 20 || camera.transform.localEulerAngles.y >= 160 && camera.transform.localEulerAngles.y <= 200)
+                {
+                    if (tag == "RightCannon")
+                    {
+                        direction = transform.TransformDirection(Vector3.right);
+                    }
+                    else if (tag == "LeftCannon")
+                    {
+                        direction = transform.TransformDirection(Vector3.left);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 else
                 {
                     return;
                 }
+
+                cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
+
+                cooldownTimerForCannons = cannonShootDelay;
+
+                cannon.GetComponent<Rigidbody>().AddForce(direction * ballVelocity, ForceMode.Force);
+
+                randomNumberGen();
+            }
+        }
+    }
+
+    void cannonFire()
+    {
+        if (cooldownTimerForCannons >= 0)
+        {
+            return;
+        }
+        if (tag == "RightCannon" && camera.transform.localEulerAngles.y >= 80 && camera.transform.localEulerAngles.y <= 100)
+        {
+            direction = transform.TransformDirection(Vector3.right);
+        }
+        else if (tag == "LeftCannon" && camera.transform.localEulerAngles.y >= 260 && camera.transform.localEulerAngles.y <= 280)
+        {
+            direction = transform.TransformDirection(Vector3.left);
+        }
+        else if (camera.transform.localEulerAngles.y >= -20 && camera.transform.localEulerAngles.y <= 20 || camera.transform.localEulerAngles.y >= 160 && camera.transform.localEulerAngles.y <= 200)
+        {
+            if (tag == "RightCannon")
+            {
+                direction = transform.TransformDirection(Vector3.right);
+            }
+            else if (tag == "LeftCannon")
+            {
+                direction = transform.TransformDirection(Vector3.left);
             }
             else
             {
                 return;
             }
-
-            cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
-            
-            cooldownTimerForCannons = cannonShootDelay;
-
-            cannon.GetComponent<Rigidbody>().AddForce(direction * ballVelocity, ForceMode.Force);
-
-            randomNumberGen();
         }
-	}
+        else
+        {
+            return;
+        }
+
+        cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
+
+        cooldownTimerForCannons = cannonShootDelay;
+
+        cannon.GetComponent<Rigidbody>().AddForce(direction * ballVelocity, ForceMode.Force);
+
+        randomNumberGen();
+    }
 
     void randomNumberGen()
     {

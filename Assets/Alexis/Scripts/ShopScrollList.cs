@@ -32,10 +32,6 @@ public class ShopScrollList : MonoBehaviour
     void RefreshDisplay()
     {
         myGoldDisplay.text = "Gold: " + gold.ToString();
-        if (otherShop.name == "Ship Inventory Content")
-        {
-            userStatistics.gold = 150.0f;
-        }
         RemoveButtons();
         AddButtons();
     }
@@ -69,11 +65,13 @@ public class ShopScrollList : MonoBehaviour
             gold += item.price;
             otherShop.gold -= item.price;
 
-            if (item.itemName != "Food")
+            if (otherShop.name != "Ship Inventory Content")
             {
+                RemoveItem(item, this);
+                item.price += 5.0f;
                 AddItem(item, otherShop);
             }
-            RemoveItem(item, this);
+            // RemoveItem(item, this);
 
             if (item.itemName == "Food")
             {
