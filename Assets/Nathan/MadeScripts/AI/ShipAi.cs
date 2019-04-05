@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ShipAi : MonoBehaviour
 {
+    public float health = 100f;
+
     public bool movement = true; // for shutting off movement section of code
     public bool gizmos = true; // for shutting off gizmos drawing
 
@@ -16,17 +18,13 @@ public class ShipAi : MonoBehaviour
     public float turnSpeed = 10f;
     public float fireDistance = 20f;
     public float ballVelocity = 1500f;
-    public GameObject cannonBallPrefab;
+    public bool rightSide;
 
-    private bool rightSide;
     private float distanceBetween;
     private bool toClose; // if to close then switched the direction
     private Vector3 direction; // direction moving
-    private float lerpTime = 1f; // max lerp life
-    private float currentLerpTime; // how far in the lerp currently
     private Vector3 relativePoint; // used for determining if other object is on the left or right of the ai
     private int closestTerm = -1;
-    private GameObject cannon;
 
     public int amountOfTerminals = 12;
     private Vector3[] terminals;
@@ -74,7 +72,6 @@ public class ShipAi : MonoBehaviour
         {
             return;
         }
-        currentLerpTime += Time.deltaTime;
 
         /*------------------------------------------------------------------------------------------------------------*/
         /*---------------------------------------   Basic Movement Towards Player  -----------------------------------*/
@@ -111,23 +108,6 @@ public class ShipAi : MonoBehaviour
         else if(relativePoint.x < 0)
         {
             rightSide = false;
-        }
-
-        /*------------------------------------------------------------------------------------------------------------*/
-        /*-------------------------------------  Fire The Cannons When In Distance  ----------------------------------*/
-        /*------------------------------------------------------------------------------------------------------------*/
-
-        if (Vector3.Distance(target.position, transform.position) <= fireDistance)
-        {
-            cannon = Instantiate(cannonBallPrefab, transform.position, transform.rotation);
-            if (rightSide == true)
-            {
-                cannon.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.right) * ballVelocity, ForceMode.Force);
-            }
-            else if (rightSide == false)
-            {
-                cannon.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.left) * ballVelocity, ForceMode.Force);
-            }
         }
     }
 
@@ -177,8 +157,6 @@ public class ShipAi : MonoBehaviour
         {
             return;
         }
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(target.position, 1.0f);
 
         Gizmos.color = Color.red;
         for (int i = 0; i < terminals.Length; i++)
