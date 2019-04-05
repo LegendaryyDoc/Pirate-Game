@@ -10,6 +10,7 @@ public class ShipBehavior : MonoBehaviour
 {
     new Rigidbody rigidbody = new Rigidbody();
 
+    public float shipHealth = 100;
     private float health;
     private float respawnTimer = 0.0f;
     private float rotateSpeed = 0.5f;
