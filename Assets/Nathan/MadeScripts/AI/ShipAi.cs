@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ShipAi : MonoBehaviour
 {
+    /*--- All Variables ---*/
+    #region variables 
     public float health = 100f;
 
     public bool movement = true; // for shutting off movement section of code
@@ -15,9 +17,11 @@ public class ShipAi : MonoBehaviour
     public Transform target; // other object
     public float toCloseDistance = 10f;
     public float speed = .5f;
+    public float maxSpeed = 5f;
     public float turnSpeed = 10f;
     public float fireDistance = 20f;
     public float ballVelocity = 1500f;
+    public float islandAlertDistance = 20f;
     public bool rightSide;
 
     private float distanceBetween;
@@ -25,9 +29,11 @@ public class ShipAi : MonoBehaviour
     private Vector3 direction; // direction moving
     private Vector3 relativePoint; // used for determining if other object is on the left or right of the ai
     private int closestTerm = -1;
+    private bool followPlayer = true;
 
     public int amountOfTerminals = 12;
     private Vector3[] terminals;
+    #endregion
 
 
     /*-----   Check if player is in range   -----*/
@@ -65,6 +71,34 @@ public class ShipAi : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        /*------------------------------------------------------------------------------------------------------------*/
+        /*----------------------------------------  RayCasting To Avoid Islands  -------------------------------------*/
+        /*------------------------------------------------------------------------------------------------------------*/
+
+        Debug.DrawRay(transform.position, transform.forward * islandAlertDistance, Color.red);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out hit) && hit.transform.gameObject.tag == "Floor") // checking to see if raycast hits a island in the direction moving
+        {
+            if (hit.distance <= islandAlertDistance) // checks to see if the distance the ray hit at is less than the distance it should be turning to avoid hitting the island
+            {
+                followPlayer = false;
+                float pDistance = (islandAlertDistance - hit.distance) / islandAlertDistance;
+                speed = speed * pDistance; // reduces the speed based off of distance
+
+                Vector3 perpVec = Vector3.Cross(direction, Vector3.up).normalized; // gives back a perpendicular vector
+
+                var rotation = Quaternion.LookRotation(perpVec, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+                transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            }
+        }
+        followPlayer = true;
+    }
+
     // Update is called once per frame
     void Update ()
     {
@@ -77,7 +111,7 @@ public class ShipAi : MonoBehaviour
         /*---------------------------------------   Basic Movement Towards Player  -----------------------------------*/
         /*------------------------------------------------------------------------------------------------------------*/
 
-        if (movement == true)
+        if (movement == true && followPlayer == true)
         {
             var point = GetPoint();
             // rotate to the target
@@ -91,7 +125,7 @@ public class ShipAi : MonoBehaviour
 
             distanceBetween = Vector3.Distance(transform.position, target.position); // checks to see how close or far the player is from the ai
             toClose = distanceBetween < toCloseDistance; // checks to see if to close
-            direction = toClose ? Vector3.back : Vector3.forward; // checks if to close or not and will go in a certain direction if it is or not
+            direction = Vector3.forward; // checks if to close or not and will go in a certain direction if it is or not
 
             transform.Translate(direction * Time.deltaTime * speed); // move in the direction towards the player
         }
@@ -109,6 +143,7 @@ public class ShipAi : MonoBehaviour
         {
             rightSide = false;
         }
+
     }
 
     Vector3 GetPoint() // Gets the nearest node

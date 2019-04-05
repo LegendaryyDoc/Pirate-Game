@@ -3381,6 +3381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3482,6 +3483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3500,15 +3502,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2441ec578555414296f66fd17fa464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   movement: 1
   gizmos: 1
   radiusNearestPoint: 15
   target: {fileID: 0}
   toCloseDistance: 10
   speed: 2.5
+  maxSpeed: 5
   turnSpeed: 10
   fireDistance: 25
   ballVelocity: 1500
+  islandAlertDistance: 20
   rightSide: 0
   amountOfTerminals: 12
 --- !u!114 &114405526669617158
@@ -3538,6 +3543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3556,6 +3562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3590,6 +3597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3624,6 +3632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3658,6 +3667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
@@ -3676,6 +3686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b7f86c95fb3ed4ea9b9c32045e1843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonFireButton: {fileID: 0}
   cannonBallPrefab: {fileID: 1511552806358666, guid: d44b411846e26eb4b9937230d94caa27,
     type: 2}
   camera: {fileID: 0}
