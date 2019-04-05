@@ -10,11 +10,23 @@ public class CollisionDestroy : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<ShipBehavior>();
+            ShipBehavior player = other.GetComponent<ShipBehavior>();
+            if(player == null)
+            {
+                return;
+            }
+            //subtract health by damage
+            // still need to add player health
         }
         else if(other.tag == "AI")
         {
-            other.GetComponent<ShipAi>().health -= damage;
+            ShipAi shipAi = other.GetComponent<ShipAi>();
+            if (shipAi == null)
+            {
+                return;
+            }
+            shipAi.health -= damage;
+            Debug.Log("Health:" + shipAi.health);
         }
     }
 
