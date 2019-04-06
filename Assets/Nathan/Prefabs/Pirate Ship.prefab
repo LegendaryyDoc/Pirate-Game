@@ -569,10 +569,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4806456419878958}
+  - component: {fileID: 95761124262824664}
   - component: {fileID: 65237077186931154}
   - component: {fileID: 54184124831202526}
   - component: {fileID: 114521824220969062}
   - component: {fileID: 114209839194740834}
+  - component: {fileID: 114535397413980048}
   m_Layer: 9
   m_Name: Pirate Ship Object
   m_TagString: Player
@@ -3494,6 +3496,24 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002887250729216}
   m_Enabled: 1
+--- !u!95 &95761124262824664
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354858121560152}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114001973656631732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3764,8 +3784,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114001973656631732}
   m_HandleRect: {fileID: 224123015399224602}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3830,10 +3850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 22
-  itemList:
-  - itemName: Cannon Balls
-    icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    price: 5
+  itemList: []
   otherShop: {fileID: 0}
   buttonObjectPool: {fileID: 0}
   currentItemSelected: 
@@ -3930,10 +3947,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   fadeTransitions: {fileID: 0}
+  shipHealth: 0
   sSL: {fileID: 114425440818149500}
   userStatistics: {fileID: 0}
   DecreaseSail: {fileID: 0}
   IncreaseSail: {fileID: 0}
+--- !u!114 &114535397413980048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354858121560152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f30dd54b7e153c44a6c7dd6bed5bdc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoints:
+  - {x: 5, y: 5, z: 5}
+  - {x: 250, y: 5, z: 250}
+  - {x: 450, y: 5, z: 450}
 --- !u!114 &114537855989117252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4075,7 +4108,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224833397914696138}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4578,7 +4611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0.000091552734, y: 0}
   m_SizeDelta: {x: 412, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224470499572207804

@@ -9,12 +9,14 @@ public class Item
 {
     public string itemName;
     public Sprite icon;
-    public float price = 1.0f;
+    [HideInInspector]
+    public int price = 1;
 }
 
 public class ShopScrollList : MonoBehaviour
 {
-    public float gold = 0.0f;
+    [HideInInspector]
+    public int gold;
     public List<Item> itemList;
     public ShopScrollList otherShop;
     public SimpleObjectPool buttonObjectPool;
@@ -26,6 +28,11 @@ public class ShopScrollList : MonoBehaviour
 
     void Start()
     {
+        for(int i = 0; i < itemList.Count; i++)
+        {
+            itemList[i].price = Random.Range(1, 50);
+        }
+        gold = Random.Range(0, 250);
         RefreshDisplay();
     }
 
@@ -60,6 +67,7 @@ public class ShopScrollList : MonoBehaviour
 
     public void TryTransferItemToOtherShop(Item item)
     {
+        int randomPriceIncrease = Random.Range(1, 10);
         if (otherShop.gold >= item.price)
         {
             gold += item.price;
@@ -68,14 +76,14 @@ public class ShopScrollList : MonoBehaviour
             if (otherShop.name != "Ship Inventory Content")
             {
                 RemoveItem(item, this);
-                item.price += 5.0f;
+                item.price += randomPriceIncrease;
                 AddItem(item, otherShop);
             }
             // RemoveItem(item, this);
 
             if (item.itemName == "Food")
             {
-                userStatistics.addFood(25.0f);
+                userStatistics.addFood(Random.Range(1, 100));
             }
 
             RefreshDisplay();

@@ -10,14 +10,18 @@ public class ShipBehavior : MonoBehaviour
 {
     new Rigidbody rigidbody = new Rigidbody();
 
-    public float shipHealth = 100;
     private float health;
     private float respawnTimer = 0.0f;
     private float rotateSpeed = 0.5f;
+    private RespawnBehavior respawnBehavior;
     private Transform tfCam;
 
     public Animator animator;
     public Animator fadeTransitions;
+    [HideInInspector]
+    private Animator shipAnimator;
+    [HideInInspector]
+    public float shipHealth;
     public ShopScrollList sSL;
     public UserStatistics userStatistics;
 
@@ -30,12 +34,16 @@ public class ShipBehavior : MonoBehaviour
 
     void Start()
     {
+        shipHealth = userStatistics.shipHealth;
         DecreaseSail.onClick.AddListener(decreaseSail);
         IncreaseSail.onClick.AddListener(increaseSail);
 
         animator.enabled = false;
         fadeTransitions.enabled = true;
         fadeTransitions.SetBool("isObjectResetting", false);
+
+        respawnBehavior = this.GetComponent<RespawnBehavior>();
+        respawnBehavior.Respawn();
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         tfCam = Camera.main.transform;
@@ -45,10 +53,15 @@ public class ShipBehavior : MonoBehaviour
     {
         Debug.Log("Current Knots: " + currentKnots);
         health = userStatistics.health;
+        userStatistics.shipHealth = shipHealth;
 
-        if (health <= 0.0f)
+        if (health <= 0 | shipHealth <= 0)
         {
-            enabled = false;
+            shipAnimator.Play("isShipDestroyed");
+            fadeTransitions.SetBool("isObjectResetting", true);
+            respawnBehavior.Respawn();
+            userStatistics.health = 100.0f;
+            userStatistics.shipHealth = 100.0f;
         }
 
         if (Application.platform == RuntimePlatform.Android)
@@ -106,7 +119,7 @@ public class ShipBehavior : MonoBehaviour
                 vector3 = new Vector3(currentKnots, 0.0f, 0.0f);
             }
         }
-        respawn(new Vector3(5.0f, 5.0f, 5.0f));
+        respawn();
     }
 
     private void OnTriggerStay(Collider other)
@@ -126,19 +139,19 @@ public class ShipBehavior : MonoBehaviour
     }
 
     // Ship Functions
-    private void respawn(Vector3 respawnPosition)
+    private void respawn()
     {
         respawnTimer += Time.deltaTime;
         if (transform.position.y < -5.0f | transform.position.y > 8.5f)
         {
             fadeTransitions.SetBool("isObjectResetting", true);
             respawnTimer = 0.0f;
-            Mathf.RoundToInt(sSL.gold /= 2.0f);
-            transform.position = respawnPosition;
+            Mathf.RoundToInt(sSL.gold /= 2);
+            respawnBehavior.Respawn();
             currentKnots = 0.0f;
             vector3 = new Vector3(currentKnots, 2.5f, 0.0f);
         }
-        if (respawnTimer > 2.0f)
+        if (respawnTimer > 1.5f)
         {
             fadeTransitions.SetBool("isObjectResetting", false);
         }
