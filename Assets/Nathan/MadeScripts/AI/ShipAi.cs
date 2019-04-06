@@ -110,7 +110,7 @@ public class ShipAi : MonoBehaviour
 
         for (int i = 0; i < amountOfTerminals; i++) // going through each terminal so to check if the terminal is over a island
         {
-            if (Physics.Raycast(target.position + terminals[i], Vector3.down, out hitTerm, groundCheckLength))
+            if (Physics.Raycast(target.position + terminals[i], Vector3.down, out hitTerm, groundCheckLength) && hitTerm.transform.gameObject.tag == "Floor")
             {
                 terminalGoodToTravel[i] = false;
             }
@@ -160,7 +160,9 @@ public class ShipAi : MonoBehaviour
                  point = GetPoint();
             }
 
-            if(Vector3.Distance(transform.position, terminals[closestTerm]) <= 100) // if at the position as the terminal
+            float dis = Vector3.Distance(transform.position, target.position + terminals[closestTerm]);
+
+            if (dis <= 10) // if at the position as the terminal
             {
                 newTerminalNeeded = true; // set so need a new terminal
             }
@@ -214,6 +216,10 @@ public class ShipAi : MonoBehaviour
             {
                 closestTerm = terminals.Length - 1;
             }
+           /* else
+            {
+                closestTerm = closestTerm - 1;
+            }*/
         }
         else if (goLeft == true && rightSide == true || rightSide == false && goRight == false && goLeft == true) // check to see if should go left
         {
