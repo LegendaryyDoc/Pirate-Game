@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Alexis/Scenes/Map1.unity
-    guid: f33b569ec414cca48963a41fde5f6e96
+    path: Assets/Alexis/Scenes/Title Screen.unity
+    guid: 73365ec115c7dcd4484b017438429383
+  - enabled: 1
+    path: Assets/Alexis/Scenes/Credits.unity
+    guid: dce79e08ad678344090eceaaee6ef207
+  - enabled: 1
+    path: Assets/Alexis/Scenes/Map.unity
+    guid: 141a02ec69294c24eb2a48d341f82093
   m_configObjects: {}
