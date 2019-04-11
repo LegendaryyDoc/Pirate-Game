@@ -155,17 +155,25 @@ public class ShipAi : MonoBehaviour
 
         if (movement == true)
         {
-            if (newTerminalNeeded == true) // when ai makes it to a terminal will need to get a new terminal
-            {
-                 point = GetPoint();
-            }
+            // old version of get region making like older state so actually works better for showing
+            #region unstableGetPoint
+            /* if (newTerminalNeeded == true) // when ai makes it to a terminal will need to get a new terminal
+             {
+                  point = GetPoint();
+             }
+
+             newTerminalNeeded = true;
+            
 
             float dis = Vector3.Distance(transform.position, target.position + terminals[closestTerm]);
 
             if (dis <= 10) // if at the position as the terminal
             {
                 newTerminalNeeded = true; // set so need a new terminal
-            }
+            }*/
+            #endregion
+
+            point = GetPoint();
 
             // rotate to the target
             var lookPos = point - transform.position; // gets the offset of the 2 objects
@@ -184,55 +192,97 @@ public class ShipAi : MonoBehaviour
 
     Vector3 GetPoint() // Gets the nearest node
     {
-        newTerminalNeeded = false;
+        // this is the unstable build for ai finding the point on the player and then trying to avoid reverting back to an older version so that for playing it is better
+        #region unstableGetPoint
+        /* newTerminalNeeded = false;
+         closestTerm = 0;
+         float closestCurrentDist = Vector3.Distance(transform.position, target.position + terminals[closestTerm]);
+         for (int i = 0; i < terminals.Length; i++)
+         {
+             float contenderClosestDist = Vector3.Distance(transform.position, target.position + terminals[i]);
+
+             if (contenderClosestDist < closestCurrentDist && terminalGoodToTravel[i] == true)
+             {
+                 closestTerm = i;
+                 closestCurrentDist = contenderClosestDist;
+             }
+         }
+
+         bool goRight = true; // used to check if should go left or right based on if the next terminal is over land or not
+         bool goLeft = true;
+
+         if (terminalGoodToTravel[closestTerm - 1] == false) // if the one to thye right is over land
+         {
+             goRight = false;
+         }
+         if (terminalGoodToTravel[closestTerm + 1] == false) // if the one to the left is over land
+         {
+             goLeft = false;
+         }
+
+         if (goRight == true && rightSide == false || rightSide == true && goLeft == false && goRight == true) // check to see if should go right
+         {
+             if (closestTerm == 0) // if closest term = 0 set it to be the amount of terminals
+             {
+                 closestTerm = terminals.Length - 1;
+             }
+             else
+             {
+                 closestTerm = closestTerm - 1;
+             }
+         }
+         else if (goLeft == true && rightSide == true || rightSide == false && goRight == false && goLeft == true) // check to see if should go left
+         {
+             if (closestTerm == terminals.Length) // if closest term = max amount of terminals then set closest term to 0
+             {
+                 closestTerm = 0;
+             }
+             else
+             {
+                 closestTerm = (closestTerm) % terminals.Length;
+             }
+         }
+         return target.position + terminals[closestTerm];*/
+        #endregion
+
+        // older version
         closestTerm = 0;
         float closestCurrentDist = Vector3.Distance(transform.position, target.position + terminals[closestTerm]);
-        for (int i = 0; i < terminals.Length; i++)
+        for (int i = 1; i < terminals.Length; i++)
         {
             float contenderClosestDist = Vector3.Distance(transform.position, target.position + terminals[i]);
-        
-            if (contenderClosestDist < closestCurrentDist && terminalGoodToTravel[i] == true)
+
+            if (contenderClosestDist < closestCurrentDist)
             {
                 closestTerm = i;
                 closestCurrentDist = contenderClosestDist;
             }
         }
-        
-        bool goRight = true; // used to check if should go left or right based on if the next terminal is over land or not
-        bool goLeft = true;
-        
-        if (terminalGoodToTravel[closestTerm - 1] == false) // if the one to thye right is over land
+
+        if (rightSide == true)
         {
-            goRight = false;
-        }
-        if (terminalGoodToTravel[closestTerm + 1] == false) // if the one to the left is over land
-        {
-            goLeft = false;
-        }
-        
-        if (goRight == true && rightSide == false || rightSide == true && goLeft == false && goRight == true) // check to see if should go right
-        {
-            if (closestTerm == 0) // if closest term = 0 set it to be the amount of terminals
+            if (closestTerm == 0)
             {
                 closestTerm = terminals.Length - 1;
             }
-           /* else
+            else
             {
                 closestTerm = closestTerm - 1;
-            }*/
+            }
         }
-        else if (goLeft == true && rightSide == true || rightSide == false && goRight == false && goLeft == true) // check to see if should go left
+        else
         {
-            if (closestTerm == terminals.Length) // if closest term = max amount of terminals then set closest term to 0
+            if (closestTerm == terminals.Length)
             {
                 closestTerm = 0;
             }
             else
             {
-                closestTerm = (closestTerm) % terminals.Length;
+                closestTerm = (closestTerm + 1) % terminals.Length;
             }
         }
         return target.position + terminals[closestTerm];
+
     }
 
     private void OnDrawGizmos() // Draws all the gizmos

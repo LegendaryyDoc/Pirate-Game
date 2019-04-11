@@ -57,7 +57,7 @@ public class ShipBehavior : MonoBehaviour
 
         if (health <= 0 | shipHealth <= 0)
         {
-            shipAnimator.Play("isShipDestroyed");
+            //shipAnimator.Play("isShipDestroyed");
             fadeTransitions.SetBool("isObjectResetting", true);
             respawnBehavior.Respawn();
             userStatistics.health = 100.0f;
