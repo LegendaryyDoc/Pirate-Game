@@ -57,11 +57,10 @@ public class ShipBehavior : MonoBehaviour
 
         if (health <= 0 | shipHealth <= 0)
         {
-            shipAnimator.Play("isShipDestroyed");
-            fadeTransitions.SetBool("isObjectResetting", true);
+            Mathf.RoundToInt(sSL.gold /= 2);
             respawnBehavior.Respawn();
+            shipHealth = 100.0f;
             userStatistics.health = 100.0f;
-            userStatistics.shipHealth = 100.0f;
         }
 
         if (Application.platform == RuntimePlatform.Android)

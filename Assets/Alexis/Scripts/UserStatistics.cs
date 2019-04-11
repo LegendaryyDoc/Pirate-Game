@@ -46,7 +46,7 @@ public class UserStatistics : MonoBehaviour
 
     private void loseFoodOverTime()
     {
-        health -= 2.0f * Time.deltaTime;
+        health -= 1.0f * Time.deltaTime;
     }
 
     public void addFood(int foodAmount)
@@ -57,5 +57,10 @@ public class UserStatistics : MonoBehaviour
     public void addGold(int gold)
     {
         sSL.gold += gold;
+    }
+
+    public void addShipHealth(int wood)
+    {
+        shipHealth += wood;
     }
 }

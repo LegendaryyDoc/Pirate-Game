@@ -86,6 +86,11 @@ public class ShopScrollList : MonoBehaviour
                 userStatistics.addFood(Random.Range(1, 100));
             }
 
+            if (item.itemName == "Wood")
+            {
+                userStatistics.addShipHealth(Random.Range(1, 100));
+            }
+
             RefreshDisplay();
             otherShop.RefreshDisplay();
             Debug.Log("enough gold");
