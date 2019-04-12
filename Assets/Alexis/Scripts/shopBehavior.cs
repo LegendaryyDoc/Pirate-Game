@@ -5,30 +5,30 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class shopBehavior : MonoBehaviour {
+    private Canvas currentPortCanvas;
+    private Canvas portCanvas;
     private ShipBehavior shipBehavior;
 
     public Button shopEnterButton;
     public Button shopExitButton;
     public Canvas headsUpDisplayCanvas;
     public Canvas pcControlCanvas;
-    public Canvas portCanvas;
+    // public Canvas portCanvas;
     public Canvas shipCanvas;
     public GameObject cannonBalls;
     public TextMeshProUGUI shopPcEnterKeyCode;
-    public TextMeshProUGUI shopPcExitKeyCode;
 
     private void Start()
     {
+        portCanvas = this.GetComponentInChildren<Canvas>();
         portCanvas.enabled = false;
         shipCanvas.enabled = false;
         shopEnterButton.gameObject.SetActive(false);
+        shopExitButton.gameObject.SetActive(false);
         shopPcEnterKeyCode.enabled = false;
 
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            shopEnterButton.onClick.AddListener(delegate { enableShipAndShopCanvas(shipBehavior); });
-            shopExitButton.onClick.AddListener(delegate { DisableShipAndShopCanvas(shipBehavior); });
-        }
+        //shopEnterButton.onClick.AddListener(delegate { enableShipAndShopCanvas(shipBehavior); });
+        //shopExitButton.onClick.AddListener(delegate { DisableShipAndShopCanvas(shipBehavior); });
     }
     private void Update()
     {
@@ -43,12 +43,25 @@ public class shopBehavior : MonoBehaviour {
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            currentPortCanvas = this.portCanvas;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
         {
+            Debug.Log("Current Port Canvas: " + portCanvas);
+
             cannonBalls.SetActive(false);
             shipBehavior = other.GetComponent<ShipBehavior>();
+            shopEnterButton.onClick.AddListener(delegate { enableShipAndShopCanvas(shipBehavior); });
+            shopExitButton.onClick.AddListener(delegate { DisableShipAndShopCanvas(shipBehavior); });
             shopEnterButton.gameObject.SetActive(true);
 
             if(Application.platform == (RuntimePlatform.WindowsEditor | RuntimePlatform.WindowsPlayer))
@@ -66,6 +79,7 @@ public class shopBehavior : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            currentPortCanvas = null;
             cannonBalls.SetActive(true);
             shopEnterButton.gameObject.SetActive(false);
             shopPcEnterKeyCode.enabled = false;
@@ -74,21 +88,24 @@ public class shopBehavior : MonoBehaviour {
 
     public void DisableShipAndShopCanvas(ShipBehavior shipBehavior)
     {
+        currentPortCanvas.enabled = false;
         headsUpDisplayCanvas.enabled = true;
         pcControlCanvas.enabled = true;
-        portCanvas.enabled = false;
         shipBehavior.enabled = true;
         shipCanvas.enabled = false;
         shipBehavior.stopSail();
-        shopPcExitKeyCode.enabled = false;
     }
     public void enableShipAndShopCanvas(ShipBehavior shipBehavior)
     {
+        if(currentPortCanvas == null)
+        {
+            return;
+        }
+        currentPortCanvas.enabled = true;
+        shipCanvas.enabled = true;
         headsUpDisplayCanvas.enabled = false;
         pcControlCanvas.enabled = false;
-        portCanvas.enabled = true;
         shipBehavior.enabled = false;
-        shipCanvas.enabled = true;
-        shopPcExitKeyCode.enabled = true;
+        shopExitButton.gameObject.SetActive(true);
     }
 }
